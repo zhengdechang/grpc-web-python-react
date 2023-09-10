@@ -1,0 +1,8 @@
+#!/bin/bash
+
+CURR_PWD=$(pwd)
+
+source venv/bin/activate
+echo "Activated venv => $CURR_PWD"
+
+pip install -r requirements.txt
