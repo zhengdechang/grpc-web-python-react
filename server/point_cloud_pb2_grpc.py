@@ -17,7 +17,7 @@ class PointCloudStreamServiceStub(object):
         self.GetStreamPointCloud = channel.unary_stream(
                 '/pointcloud.PointCloudStreamService/GetStreamPointCloud',
                 request_serializer=point__cloud__pb2.PointCloudRequest.SerializeToString,
-                response_deserializer=point__cloud__pb2.PointCloud.FromString,
+                response_deserializer=point__cloud__pb2.PointCloudResponse.FromString,
                 )
 
 
@@ -36,7 +36,7 @@ def add_PointCloudStreamServiceServicer_to_server(servicer, server):
             'GetStreamPointCloud': grpc.unary_stream_rpc_method_handler(
                     servicer.GetStreamPointCloud,
                     request_deserializer=point__cloud__pb2.PointCloudRequest.FromString,
-                    response_serializer=point__cloud__pb2.PointCloud.SerializeToString,
+                    response_serializer=point__cloud__pb2.PointCloudResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -61,6 +61,6 @@ class PointCloudStreamService(object):
             metadata=None):
         return grpc.experimental.unary_stream(request, target, '/pointcloud.PointCloudStreamService/GetStreamPointCloud',
             point__cloud__pb2.PointCloudRequest.SerializeToString,
-            point__cloud__pb2.PointCloud.FromString,
+            point__cloud__pb2.PointCloudResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

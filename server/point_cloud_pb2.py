@@ -13,7 +13,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x11point_cloud.proto\x12\npointcloud\"(\n\x05Point\x12\t\n\x01x\x18\x01 \x01(\x01\x12\t\n\x01y\x18\x02 \x01(\x01\x12\t\n\x01z\x18\x03 \x01(\x01\"/\n\nPointCloud\x12!\n\x06points\x18\x01 \x03(\x0b\x32\x11.pointcloud.Point\"-\n\x11PointCloudRequest\x12\x10\n\x03msg\x18\x01 \x01(\tH\x00\x88\x01\x01\x42\x06\n\x04_msg\"\x1e\n\x0bPointsReply\x12\x0f\n\x07message\x18\x01 \x01(\t2i\n\x17PointCloudStreamService\x12N\n\x13GetStreamPointCloud\x12\x1d.pointcloud.PointCloudRequest\x1a\x16.pointcloud.PointCloud0\x01\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x11point_cloud.proto\x12\npointcloud\"(\n\x05Point\x12\t\n\x01x\x18\x01 \x01(\x01\x12\t\n\x01y\x18\x02 \x01(\x01\x12\t\n\x01z\x18\x03 \x01(\x01\"7\n\x12PointCloudResponse\x12!\n\x06points\x18\x01 \x03(\x0b\x32\x11.pointcloud.Point\"%\n\x11PointCloudRequest\x12\x10\n\x08\x66ilename\x18\x01 \x01(\t2q\n\x17PointCloudStreamService\x12V\n\x13GetStreamPointCloud\x12\x1d.pointcloud.PointCloudRequest\x1a\x1e.pointcloud.PointCloudResponse0\x01\x62\x06proto3')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'point_cloud_pb2', globals())
@@ -22,12 +22,10 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   DESCRIPTOR._options = None
   _POINT._serialized_start=33
   _POINT._serialized_end=73
-  _POINTCLOUD._serialized_start=75
-  _POINTCLOUD._serialized_end=122
-  _POINTCLOUDREQUEST._serialized_start=124
+  _POINTCLOUDRESPONSE._serialized_start=75
+  _POINTCLOUDRESPONSE._serialized_end=130
+  _POINTCLOUDREQUEST._serialized_start=132
   _POINTCLOUDREQUEST._serialized_end=169
-  _POINTSREPLY._serialized_start=171
-  _POINTSREPLY._serialized_end=201
-  _POINTCLOUDSTREAMSERVICE._serialized_start=203
-  _POINTCLOUDSTREAMSERVICE._serialized_end=308
+  _POINTCLOUDSTREAMSERVICE._serialized_start=171
+  _POINTCLOUDSTREAMSERVICE._serialized_end=284
 # @@protoc_insertion_point(module_scope)

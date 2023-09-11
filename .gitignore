@@ -128,11 +128,11 @@ ENV/
 env.bak/
 venv.bak/
 
-# Spyder project settings
+# Spyder project pointCloud
 .spyderproject
 .spyproject
 
-# Rope project settings
+# Rope project pointCloud
 .ropeproject
 
 # mkdocs documentation
