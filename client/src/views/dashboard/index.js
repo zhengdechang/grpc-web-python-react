@@ -9,7 +9,7 @@ const IndexPage = () => {
   const [username, setUsername] = useState('')
   const [grpcResponse, setGrpcResponse] = useState('')
 
-  const client = new SimpleGrpcClient('http://127.0.0.1:5000', null, null)
+  const client = new SimpleGrpcClient('http://10.10.98.56:5000', null, null)
 
   const onSubmit = () => {
     let req = new HelloReq()
