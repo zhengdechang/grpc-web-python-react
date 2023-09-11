@@ -1,0 +1,7 @@
+version: '3.9'
+services:
+  envoy_simple_grpc:
+    container_name: envoy-proxy
+    image: envoy:v1.0
+    restart: always
+    network_mode: "host"

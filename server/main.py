@@ -1,15 +1,15 @@
 import grpc
 import time
 from concurrent import futures
-import simple_grpc_pb2 as model
-import simple_grpc_pb2_grpc as api
+import simple_grpc_pb2 as simple_grpc_pb2
+import simple_grpc_pb2_grpc as simple_grpc_pb2_grpc
 
-class SimpleGrpcServer(api.SimpleGrpcServicer):
+class SimpleGrpcServer(simple_grpc_pb2_grpc.SimpleGrpcServicer):
   def SayHello(self, request, context):
-    return model.HelloRes(message=f"Hello {request.name}! Hope you're doing well!")
+    return simple_grpc_pb2.HelloRes(message=f"Hello {request.name}! Hope you're doing well!")
 
   def SayHelloToMany(self, request_iterator, context):
-    server_res = model.HelloRes()
+    server_res = simple_grpc_pb2.HelloRes()
     server_res.message = "Welcome "
     total_num = 0
     for client_req in request_iterator:
@@ -31,16 +31,16 @@ class SimpleGrpcServer(api.SimpleGrpcServicer):
     # Assuming there's 3 mails in the inbox
     for i, content in enumerate(inbox):
       if i == 0:
-        yield model.HelloRes(message=f"Checking your inbox... please be patient {content}")
+        yield simple_grpc_pb2.HelloRes(message=f"Checking your inbox... please be patient {content}")
         time.sleep(1)
         continue
-      yield model.HelloRes(message=f"{i}. {content}")
+      yield simple_grpc_pb2.HelloRes(message=f"{i}. {content}")
       time.sleep(1)
 
 
 def serve():
   server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
-  api.add_SimpleGrpcServicer_to_server(SimpleGrpcServer(), server)
+  simple_grpc_pb2_grpc.add_SimpleGrpcServicer_to_server(SimpleGrpcServer(), server)
   server.add_insecure_port('[::]:50051')
   server.start()
   server.wait_for_termination()
