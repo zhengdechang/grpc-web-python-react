@@ -64,14 +64,7 @@ if (goog.DEBUG && !COMPILED) {
  * @constructor
  */
 proto.pointcloud.PointCloudResponse = function (opt_data) {
-  jspb.Message.initialize(
-    this,
-    opt_data,
-    0,
-    -1,
-    proto.pointcloud.PointCloudResponse.repeatedFields_,
-    null
-  )
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null)
 }
 goog.inherits(proto.pointcloud.PointCloudResponse, jspb.Message)
 if (goog.DEBUG && !COMPILED) {
@@ -278,13 +271,6 @@ proto.pointcloud.Point.prototype.setZ = function (value) {
   return jspb.Message.setProto3FloatField(this, 3, value)
 }
 
-/**
- * List of repeated fields within this message type.
- * @private {!Array<number>}
- * @const
- */
-proto.pointcloud.PointCloudResponse.repeatedFields_ = [1]
-
 if (jspb.Message.GENERATE_TO_OBJECT) {
   /**
    * Creates an object representation of this proto.
@@ -322,11 +308,9 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
   ) {
     var f,
       obj = {
-        pointsList: jspb.Message.toObjectList(
-          msg.getPointsList(),
-          proto.pointcloud.Point.toObject,
-          includeInstance
-        ),
+        points:
+          (f = msg.getPoints()) &&
+          proto.pointcloud.Point.toObject(includeInstance, f),
       }
 
     if (includeInstance) {
@@ -373,7 +357,7 @@ proto.pointcloud.PointCloudResponse.deserializeBinaryFromReader = function (
           value,
           proto.pointcloud.Point.deserializeBinaryFromReader
         )
-        msg.addPoints(value)
+        msg.setPoints(value)
         break
       default:
         reader.skipField()
@@ -405,58 +389,44 @@ proto.pointcloud.PointCloudResponse.serializeBinaryToWriter = function (
   writer
 ) {
   var f = undefined
-  f = message.getPointsList()
-  if (f.length > 0) {
-    writer.writeRepeatedMessage(
-      1,
-      f,
-      proto.pointcloud.Point.serializeBinaryToWriter
-    )
+  f = message.getPoints()
+  if (f != null) {
+    writer.writeMessage(1, f, proto.pointcloud.Point.serializeBinaryToWriter)
   }
 }
 
 /**
- * repeated Point points = 1;
- * @return {!Array<!proto.pointcloud.Point>}
+ * optional Point points = 1;
+ * @return {?proto.pointcloud.Point}
  */
-proto.pointcloud.PointCloudResponse.prototype.getPointsList = function () {
-  return /** @type{!Array<!proto.pointcloud.Point>} */ (
-    jspb.Message.getRepeatedWrapperField(this, proto.pointcloud.Point, 1)
+proto.pointcloud.PointCloudResponse.prototype.getPoints = function () {
+  return /** @type{?proto.pointcloud.Point} */ (
+    jspb.Message.getWrapperField(this, proto.pointcloud.Point, 1)
   )
 }
 
 /**
- * @param {!Array<!proto.pointcloud.Point>} value
+ * @param {?proto.pointcloud.Point|undefined} value
  * @return {!proto.pointcloud.PointCloudResponse} returns this
  */
-proto.pointcloud.PointCloudResponse.prototype.setPointsList = function (value) {
-  return jspb.Message.setRepeatedWrapperField(this, 1, value)
+proto.pointcloud.PointCloudResponse.prototype.setPoints = function (value) {
+  return jspb.Message.setWrapperField(this, 1, value)
 }
 
 /**
- * @param {!proto.pointcloud.Point=} opt_value
- * @param {number=} opt_index
- * @return {!proto.pointcloud.Point}
+ * Clears the message field making it undefined.
+ * @return {!proto.pointcloud.PointCloudResponse} returns this
  */
-proto.pointcloud.PointCloudResponse.prototype.addPoints = function (
-  opt_value,
-  opt_index
-) {
-  return jspb.Message.addToRepeatedWrapperField(
-    this,
-    1,
-    opt_value,
-    proto.pointcloud.Point,
-    opt_index
-  )
+proto.pointcloud.PointCloudResponse.prototype.clearPoints = function () {
+  return this.setPoints(undefined)
 }
 
 /**
- * Clears the list making it empty but non-null.
- * @return {!proto.pointcloud.PointCloudResponse} returns this
+ * Returns whether this field is set.
+ * @return {boolean}
  */
-proto.pointcloud.PointCloudResponse.prototype.clearPointsList = function () {
-  return this.setPointsList([])
+proto.pointcloud.PointCloudResponse.prototype.hasPoints = function () {
+  return jspb.Message.getField(this, 1) != null
 }
 
 if (jspb.Message.GENERATE_TO_OBJECT) {

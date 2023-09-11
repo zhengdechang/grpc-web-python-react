@@ -18,7 +18,7 @@
     "axios": "^0.19.2",
     "core-js": "^3.3.2",
     "dayjs": "^1.8.28",
-    "google-protobuf": "3.12.4",
+    "google-protobuf": "^3.21.2",
     "grpc-web": "^1.4.2",
     "i18next": "^22.4.6",
     "nprogress": "^0.2.0",
