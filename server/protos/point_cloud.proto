@@ -2,27 +2,25 @@ syntax = "proto3";
 
 package pointcloud;
 
-
 message Point {
    double x = 1;
    double y = 2;
    double z = 3;
 }
+
 message PointCloud {
   repeated Point points = 1;
 }
 
 message PointCloudRequest {
-	optional string msg = 1;
+  string fileName = 1;
+  optional string msg = 2;
 }
 
-
-// The response message containing the greetings.
 message PointsReply {
    string message = 1;
 }
 
-
 service PointCloudStreamService {
-	  rpc GetStreamPointCloud (PointCloudRequest) returns (stream PointCloud);
+  rpc GetStreamPointCloud (PointCloudRequest) returns (stream PointCloud);
 }
