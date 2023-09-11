@@ -39,5 +39,5 @@ static_resources:
       # win/mac hosts: Use address: host.docker.internal instead of address: localhost in the line below
       hosts:
         - socket_address:
-            address: host.docker.internal
+            address: localhost
             port_value: 50051
