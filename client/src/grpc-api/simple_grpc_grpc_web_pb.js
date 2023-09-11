@@ -10,17 +10,14 @@
 // 	protoc              v3.19.1
 // source: simple_grpc.proto
 
-
 /* eslint-disable */
 // @ts-nocheck
 
+const grpc = {}
+grpc.web = require('grpc-web')
 
-
-const grpc = {};
-grpc.web = require('grpc-web');
-
-const proto = {};
-proto.simplegrpc = require('./simple_grpc_pb.js');
+const proto = {}
+proto.simplegrpc = require('./simple_grpc_pb.js')
 
 /**
  * @param {string} hostname
@@ -30,23 +27,20 @@ proto.simplegrpc = require('./simple_grpc_pb.js');
  * @struct
  * @final
  */
-proto.simplegrpc.SimpleGrpcClient =
-    function(hostname, credentials, options) {
-  if (!options) options = {};
-  options.format = 'text';
+proto.simplegrpc.SimpleGrpcClient = function (hostname, credentials, options) {
+  if (!options) options = {}
+  options.format = 'text'
 
   /**
    * @private @const {!grpc.web.GrpcWebClientBase} The client
    */
-  this.client_ = new grpc.web.GrpcWebClientBase(options);
+  this.client_ = new grpc.web.GrpcWebClientBase(options)
 
   /**
    * @private @const {string} The hostname
    */
-  this.hostname_ = hostname.replace(/\/+$/, '');
-
-};
-
+  this.hostname_ = hostname.replace(/\/+$/, '')
+}
 
 /**
  * @param {string} hostname
@@ -56,23 +50,24 @@ proto.simplegrpc.SimpleGrpcClient =
  * @struct
  * @final
  */
-proto.simplegrpc.SimpleGrpcPromiseClient =
-    function(hostname, credentials, options) {
-  if (!options) options = {};
-  options.format = 'text';
+proto.simplegrpc.SimpleGrpcPromiseClient = function (
+  hostname,
+  credentials,
+  options
+) {
+  if (!options) options = {}
+  options.format = 'text'
 
   /**
    * @private @const {!grpc.web.GrpcWebClientBase} The client
    */
-  this.client_ = new grpc.web.GrpcWebClientBase(options);
+  this.client_ = new grpc.web.GrpcWebClientBase(options)
 
   /**
    * @private @const {string} The hostname
    */
-  this.hostname_ = hostname.replace(/\/+$/, '');
-
-};
-
+  this.hostname_ = hostname.replace(/\/+$/, '')
+}
 
 /**
  * @const
@@ -89,12 +84,11 @@ const methodDescriptor_SimpleGrpc_SayHello = new grpc.web.MethodDescriptor(
    * @param {!proto.simplegrpc.HelloReq} request
    * @return {!Uint8Array}
    */
-  function(request) {
-    return request.serializeBinary();
+  function (request) {
+    return request.serializeBinary()
   },
   proto.simplegrpc.HelloRes.deserializeBinary
-);
-
+)
 
 /**
  * @param {!proto.simplegrpc.HelloReq} request The
@@ -106,16 +100,19 @@ const methodDescriptor_SimpleGrpc_SayHello = new grpc.web.MethodDescriptor(
  * @return {!grpc.web.ClientReadableStream<!proto.simplegrpc.HelloRes>|undefined}
  *     The XHR Node Readable Stream
  */
-proto.simplegrpc.SimpleGrpcClient.prototype.sayHello =
-    function(request, metadata, callback) {
-  return this.client_.rpcCall(this.hostname_ +
-      '/simplegrpc.SimpleGrpc/SayHello',
-      request,
-      metadata || {},
-      methodDescriptor_SimpleGrpc_SayHello,
-      callback);
-};
-
+proto.simplegrpc.SimpleGrpcClient.prototype.sayHello = function (
+  request,
+  metadata,
+  callback
+) {
+  return this.client_.rpcCall(
+    this.hostname_ + '/simplegrpc.SimpleGrpc/SayHello',
+    request,
+    metadata || {},
+    methodDescriptor_SimpleGrpc_SayHello,
+    callback
+  )
+}
 
 /**
  * @param {!proto.simplegrpc.HelloReq} request The
@@ -125,15 +122,17 @@ proto.simplegrpc.SimpleGrpcClient.prototype.sayHello =
  * @return {!Promise<!proto.simplegrpc.HelloRes>}
  *     Promise that resolves to the response
  */
-proto.simplegrpc.SimpleGrpcPromiseClient.prototype.sayHello =
-    function(request, metadata) {
-  return this.client_.unaryCall(this.hostname_ +
-      '/simplegrpc.SimpleGrpc/SayHello',
-      request,
-      metadata || {},
-      methodDescriptor_SimpleGrpc_SayHello);
-};
-
+proto.simplegrpc.SimpleGrpcPromiseClient.prototype.sayHello = function (
+  request,
+  metadata
+) {
+  return this.client_.unaryCall(
+    this.hostname_ + '/simplegrpc.SimpleGrpc/SayHello',
+    request,
+    metadata || {},
+    methodDescriptor_SimpleGrpc_SayHello
+  )
+}
 
 /**
  * @const
@@ -150,29 +149,11 @@ const methodDescriptor_SimpleGrpc_CheckInbox = new grpc.web.MethodDescriptor(
    * @param {!proto.simplegrpc.HelloReq} request
    * @return {!Uint8Array}
    */
-  function(request) {
-    return request.serializeBinary();
+  function (request) {
+    return request.serializeBinary()
   },
   proto.simplegrpc.HelloRes.deserializeBinary
-);
-
-
-/**
- * @param {!proto.simplegrpc.HelloReq} request The request proto
- * @param {?Object<string, string>=} metadata User defined
- *     call metadata
- * @return {!grpc.web.ClientReadableStream<!proto.simplegrpc.HelloRes>}
- *     The XHR Node Readable Stream
- */
-proto.simplegrpc.SimpleGrpcClient.prototype.checkInbox =
-    function(request, metadata) {
-  return this.client_.serverStreaming(this.hostname_ +
-      '/simplegrpc.SimpleGrpc/CheckInbox',
-      request,
-      metadata || {},
-      methodDescriptor_SimpleGrpc_CheckInbox);
-};
-
+)
 
 /**
  * @param {!proto.simplegrpc.HelloReq} request The request proto
@@ -181,15 +162,35 @@ proto.simplegrpc.SimpleGrpcClient.prototype.checkInbox =
  * @return {!grpc.web.ClientReadableStream<!proto.simplegrpc.HelloRes>}
  *     The XHR Node Readable Stream
  */
-proto.simplegrpc.SimpleGrpcPromiseClient.prototype.checkInbox =
-    function(request, metadata) {
-  return this.client_.serverStreaming(this.hostname_ +
-      '/simplegrpc.SimpleGrpc/CheckInbox',
-      request,
-      metadata || {},
-      methodDescriptor_SimpleGrpc_CheckInbox);
-};
+proto.simplegrpc.SimpleGrpcClient.prototype.checkInbox = function (
+  request,
+  metadata
+) {
+  return this.client_.serverStreaming(
+    this.hostname_ + '/simplegrpc.SimpleGrpc/CheckInbox',
+    request,
+    metadata || {},
+    methodDescriptor_SimpleGrpc_CheckInbox
+  )
+}
 
+/**
+ * @param {!proto.simplegrpc.HelloReq} request The request proto
+ * @param {?Object<string, string>=} metadata User defined
+ *     call metadata
+ * @return {!grpc.web.ClientReadableStream<!proto.simplegrpc.HelloRes>}
+ *     The XHR Node Readable Stream
+ */
+proto.simplegrpc.SimpleGrpcPromiseClient.prototype.checkInbox = function (
+  request,
+  metadata
+) {
+  return this.client_.serverStreaming(
+    this.hostname_ + '/simplegrpc.SimpleGrpc/CheckInbox',
+    request,
+    metadata || {},
+    methodDescriptor_SimpleGrpc_CheckInbox
+  )
+}
 
-module.exports = proto.simplegrpc;
-
+module.exports = proto.simplegrpc
