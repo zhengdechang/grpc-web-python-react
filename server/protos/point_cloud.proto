@@ -18,5 +18,5 @@ message PointCloudRequest {
 
 
 service PointCloudStreamService {
-  rpc GetStreamPointCloud (PointCloudRequest) returns (stream PointCloudResponse);
+  rpc GetStreamPointCloud (PointCloudRequest) returns (stream Point);
 }
