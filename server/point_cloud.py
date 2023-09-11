@@ -5,18 +5,19 @@ import point_cloud_pb2_grpc as point_cloud_pb2_grpc
 import os
 
 
-def generate_point_cloud(pcd_file, max_points=10000):
+def generate_point_cloud(pcd_file):
     try:
         cloud = PyntCloud.from_file(pcd_file)
         points = cloud.points.values.tolist()
 
-        for i, point in enumerate(points):
-            if i >= max_points:
-                break
+        print(len(points),'points')
+        for point in points:
             x, y, z = point
             yield point_cloud_pb2.Point(x=x, y=y, z=z)
     except Exception as e:
         print(f'e:{e}')
+
+
 
 class PointCloudStreamService(point_cloud_pb2_grpc.PointCloudStreamServiceServicer):
     def GetStreamPointCloud(self, request, context):
@@ -26,8 +27,6 @@ class PointCloudStreamService(point_cloud_pb2_grpc.PointCloudStreamServiceServic
 
         try:
             for point in point_generator:
-                print(point, 'point_generator')
                 yield point
         except Exception as e:
             print(f'e:{e}')
-
