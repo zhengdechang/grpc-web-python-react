@@ -14,67 +14,70 @@ import { useReactive } from 'ahooks'
 const PointCloud = (props) => {
   const [points, setPoints] = useState([])
 
-  //  const handler = (response) => {
-  //    const point = {
-  //      x: response.getX(),
-  //      y: response.getY(),
-  //      z: response.getZ(),
-  //    }
-  //    setPoints((prevPoints) => {
-  //      return [...prevPoints, point]
-  //    })
-  //  }
-  //
+  const onLoadPointCloud = () => {
+    let buffer = []
+    const request = new PointCloudRequest()
+    request.setFilename('wolf.pcd')
+
+    const stream = new GrpcStream('http://10.10.98.56:5000')
+    const handler = (response) => {
+      const point = {
+        x: response.getX(),
+        y: response.getY(),
+        z: response.getZ(),
+      }
+      buffer.push(point)
+      if (buffer.length >= 100) {
+        // 你可以根据实际情况调整这个值
+        setPoints((prevPoints) => [...prevPoints, ...buffer])
+        buffer = []
+      }
+    }
+    stream.getStreamPointCloud(request, handler)
+  }
   //  const onLoadPointCloud = () => {
   //    const request = new PointCloudRequest()
   //    request.setFilename('wolf.pcd')
   //
-  //    const stream = new GrpcStream('http://10.10.98.56:5000')
+  //    const client = new PointCloudStreamServiceClient(
+  //      'http://10.10.98.56:5000',
+  //      null,
+  //      null
+  //    )
   //
-  //    stream.getStreamPointCloud(request, handler)
+  //    const stream = client.getStreamPointCloud(request, {})
+  //    console.log(stream, 'stream')
+  //
+  //    let buffer = []
+  //
+  //    stream.on('data', (response) => {
+  //      console.log(response, 'response')
+  //      const point = {
+  //        x: response.getX(),
+  //        y: response.getY(),
+  //        z: response.getZ(),
+  //      }
+  //      buffer.push(point)
+  //
+  //      // 如果缓冲区达到一定数量，更新状态并清空缓冲区
+  //      if (buffer.length >= 100) {
+  //        // 你可以根据实际情况调整这个值
+  //        setPoints((prevPoints) => [...prevPoints, ...buffer])
+  //        buffer = []
+  //      }
+  //    })
+  //
+  //    stream.on('error', (error) => {
+  //      console.error('Error:', error)
+  //    })
+  //
+  //    stream.on('end', () => {
+  //      console.log('Stream completed')
+  //      // 数据流结束时，更新状态并清空缓冲区
+  //      setPoints((prevPoints) => [...prevPoints, ...buffer])
+  //      buffer = []
+  //    })
   //  }
-const onLoadPointCloud = () => {
-  const request = new PointCloudRequest()
-  request.setFilename('wolf.pcd')
-
-  const client = new PointCloudStreamServiceClient(
-    'http://10.10.98.56:5000',
-    null,
-    null
-  )
-
-  const stream = client.getStreamPointCloud(request, {})
-  console.log(stream, 'stream')
-
-  let buffer = []
-
-  stream.on('data', (response) => {
-    console.log(response, 'response')
-    const point = {
-      x: response.getX(),
-      y: response.getY(),
-      z: response.getZ(),
-    }
-    buffer.push(point)
-
-    // 如果缓冲区达到一定数量，更新状态并清空缓冲区
-    if (buffer.length >= 100) {  // 你可以根据实际情况调整这个值
-      setPoints((prevPoints) => [...prevPoints, ...buffer])
-      buffer = []
-    }
-  })
-
-  stream.on('error', (error) => {
-    console.error('Error:', error)
-  })
-
-  stream.on('end', () => {
-    console.log('Stream completed')
-    // 数据流结束时，更新状态并清空缓冲区
-    setPoints((prevPoints) => [...prevPoints, ...buffer])
-    buffer = []
-  })
-}
   return (
     <div>
       <Button type="primary" onClick={onLoadPointCloud}>
