@@ -1,8 +1,8 @@
 import grpc
 import time
 from concurrent import futures
-import protos.simple_grpc_pb2 as simple_grpc_pb2
-import protos.simple_grpc_pb2_grpc as simple_grpc_pb2_grpc
+import simple_grpc_pb2 as simple_grpc_pb2
+import simple_grpc_pb2_grpc as simple_grpc_pb2_grpc
 
 class SimpleGrpcServer(simple_grpc_pb2_grpc.SimpleGrpcServicer):
   def SayHello(self, request, context):

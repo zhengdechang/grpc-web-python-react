@@ -11,7 +11,7 @@
     "build": "webpack --config ./config/webpack.prod.config.js",
     "test:watch": "test -- --watch",
     "format": "prettier --write \"**/*.{js,scss,html,md,json}\" --ignore-path .gitignore",
-    "generate": "npx grpc_tools_node_protoc --js_out=import_style=commonjs,binary:./src/grpc-api --grpc_out=./src/grpc-api -I ../server/protos simple_grpc.proto"
+    "generate": "npx grpc_tools_node_protoc --js_out=import_style=commonjs,binary:./src/grpc-api --grpc-web_out=import_style=commonjs,mode=grpcwebtext:./src/grpc-api -I ../server/protos simple_grpc.proto"
   },
   "dependencies": {
     "antd": "^4.3.4",
@@ -19,7 +19,6 @@
     "core-js": "^3.3.2",
     "dayjs": "^1.8.28",
     "google-protobuf": "^3.21.2",
-    "grpc-tools": "^1.12.4",
     "grpc-web": "^1.4.2",
     "i18next": "^22.4.6",
     "nprogress": "^0.2.0",
@@ -54,6 +53,8 @@
     "eslint-plugin-react": "^7.20.0",
     "file-loader": "^6.0.0",
     "friendly-errors-webpack-plugin": "^1.7.0",
+    "grpc-tools": "^1.12.4",
+    "protoc-gen-grpc-web": "^1.4.2",
     "happypack": "^5.0.1",
     "hard-source-webpack-plugin": "^0.13.1",
     "html-webpack-plugin": "^4.3.0",
