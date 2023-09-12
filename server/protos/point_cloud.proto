@@ -8,19 +8,15 @@ message Point {
    double z = 3;
 }
 
-message PointCloud {
+message PointCloudResponse {
   repeated Point points = 1;
 }
 
 message PointCloudRequest {
-  string fileName = 1;
-  optional string msg = 2;
+  string filename = 1;
 }
 
-message PointsReply {
-   string message = 1;
-}
 
 service PointCloudStreamService {
-  rpc GetStreamPointCloud (PointCloudRequest) returns (stream PointCloud);
+  rpc GetStreamPointCloud (PointCloudRequest) returns (stream Point);
 }

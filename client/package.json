@@ -11,9 +11,10 @@
     "build": "webpack --config ./config/webpack.prod.config.js",
     "test:watch": "test -- --watch",
     "format": "prettier --write \"**/*.{js,scss,html,md,json}\" --ignore-path .gitignore",
-    "generate": "npx grpc_tools_node_protoc --js_out=import_style=commonjs,binary:./src/grpc-api --grpc-web_out=import_style=commonjs,mode=grpcwebtext:./src/grpc-api -I ../server/protos simple_grpc.proto"
+    "generate": "npx grpc_tools_node_protoc --js_out=import_style=commonjs,binary:./src/grpc-api --grpc-web_out=import_style=commonjs,mode=grpcwebtext:./src/grpc-api -I ../server/protos ../server/protos/*.proto"
   },
   "dependencies": {
+    "ahooks": "^3.7.8",
     "antd": "^4.3.4",
     "axios": "^0.19.2",
     "core-js": "^3.3.2",
@@ -54,7 +55,6 @@
     "file-loader": "^6.0.0",
     "friendly-errors-webpack-plugin": "^1.7.0",
     "grpc-tools": "^1.12.4",
-    "protoc-gen-grpc-web": "^1.4.2",
     "happypack": "^5.0.1",
     "hard-source-webpack-plugin": "^0.13.1",
     "html-webpack-plugin": "^4.3.0",
@@ -68,6 +68,7 @@
     "postcss-loader": "^3.0.0",
     "preload-webpack-plugin": "^3.0.0-beta.4",
     "prettier": "^2.0.5",
+    "protoc-gen-grpc-web": "^1.4.2",
     "style-loader": "^1.2.1",
     "terser-webpack-plugin": "^3.0.3",
     "time-fix-plugin": "^2.0.6",

@@ -4,14 +4,7 @@ import BlankLayout from '@/layouts/BlankLayout'
 
 const routerConfig = [
   { path: '/dashboard', name: '列表', component: 'dashboard' },
-  {
-    path: '/system',
-    redirect: '/system/settings',
-    exact: true,
-    childRoutes: [
-      { path: '/system/settings', name: '设置', component: 'settings' },
-    ],
-  },
+  { path: '/pointcloud', name: '点云', component: 'pointCloud' },
   /* 在上方填写你的页面路由配置 **/
   {
     path: '/exception/404',
