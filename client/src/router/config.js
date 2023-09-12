@@ -5,6 +5,7 @@ import BlankLayout from '@/layouts/BlankLayout'
 const routerConfig = [
   { path: '/dashboard', name: '列表', component: 'dashboard' },
   { path: '/pointcloud', name: '点云', component: 'pointCloud' },
+  { path: '/threepointcloud', name: '点云', component: 'threePointCloud' },
   /* 在上方填写你的页面路由配置 **/
   {
     path: '/exception/404',

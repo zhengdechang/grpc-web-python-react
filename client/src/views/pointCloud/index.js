@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import {
-  PointCloudRequest,
-} from '@/grpc-api/point_cloud_pb.js'
+import { PointCloudRequest } from '@/grpc-api/point_cloud_pb.js'
 import { grpc } from 'grpc-web'
 import GrpcStream from '@/utils/GrpcStream'
 import { Button, Input, Typography } from 'antd'
