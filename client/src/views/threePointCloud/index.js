@@ -33,18 +33,18 @@ const ThreePointCloud = () => {
 
     // Create a camera
     state.camera = new THREE.PerspectiveCamera(
-      80,
+      30,
       window.innerWidth / window.innerHeight,
       0.1,
       1000
     )
-    state.camera.position.set(120, 800, 180)
+    state.camera.position.set(120, 500, 180)
     state.camera.lookAt(state.scene.position)
 
     // Create a renderer
     state.renderer = new THREE.WebGLRenderer({ alpha: true })
     state.renderer.setSize(window.innerWidth, window.innerHeight)
-    state.renderer.setClearColor(0xeeeeee, 1)
+    state.renderer.setClearColor(0xffffff, 1)
     viewNode.current.appendChild(state.renderer.domElement)
 
     // Add ambient light
@@ -52,19 +52,19 @@ const ThreePointCloud = () => {
     state.scene.add(ambientLight)
 
     // Add point light
-    const pointLight = new THREE.PointLight(0xffffff)
+    const pointLight = new THREE.PointLight(0x000000)
     pointLight.position.set(400, 10, 500)
     state.scene.add(pointLight)
 
     // Add directional light
-    const directionalLight = new THREE.DirectionalLight(0x999999)
+    const directionalLight = new THREE.DirectionalLight(0xffffff)
     directionalLight.position.set(0, 150, 0)
     state.scene.add(directionalLight)
 
     // Add controls
     state.controler = new OrbitControls(state.camera, state.renderer.domElement)
     state.controler.minPolarAngle = 0
-    state.controler.maxPolarAngle = Math.PI / 2
+    state.controler.maxPolarAngle = Math.PI
     state.controler.minDistance = 1
     state.controler.maxDistance = 800
 
@@ -72,7 +72,7 @@ const ThreePointCloud = () => {
     state.pointCloudMaterial = new THREE.PointsMaterial({
       size: 0.05,
       color: 0xffffff,
-      opacity: 0.7,
+      opacity: 1,
       transparent: true,
     })
   }
