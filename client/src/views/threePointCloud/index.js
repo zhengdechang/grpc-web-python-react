@@ -4,8 +4,11 @@ import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { PointCloudStreamServiceClient } from '@/grpc-api/point_cloud_grpc_web_pb.js'
 import { PointCloudRequest } from '@/grpc-api/point_cloud_pb.js'
+import GrpcStream from '@/utils/GrpcStream'
+import { Button, Input, Typography } from 'antd'
 
 const ThreePointCloud = () => {
+  const viewNode = useRef(null)
   const state = useReactive({
     scene: null,
     camera: null,
@@ -41,7 +44,7 @@ const ThreePointCloud = () => {
     state.renderer = new THREE.WebGLRenderer({ alpha: true })
     state.renderer.setSize(window.innerWidth, window.innerHeight)
     state.renderer.setClearColor(0xeeeeee, 1)
-    document.body.appendChild(state.renderer.domElement)
+    viewNode.current.appendChild(state.renderer.domElement)
 
     // Add ambient light
     const ambientLight = new THREE.AmbientLight(0xcccccc)
@@ -93,6 +96,7 @@ const ThreePointCloud = () => {
     if (file) {
       const reader = new FileReader()
       reader.onload = (e) => {
+        console.log(e.target.result, 'e.target.result')
         const points = pcdLoader.parse(e.target.result)
         points.material = state.pointCloudMaterial
         state.scene.add(points)
@@ -102,67 +106,61 @@ const ThreePointCloud = () => {
     }
   }
 
-  const sendUnary = async () => {
-    clearScene()
-    const client = new PointCloudStreamServiceClient(
-      'http://localhost:5000',
-      null,
-      null
-    )
-    const streamRequest = new PointCloudRequest()
-    streamRequest.setFilename('wolf.pcd')
-    let i = 0
-    const stream = client.getStreamPointCloud(streamRequest, {})
-
-    stream.on('data', (response) => {
-      if (response != null) {
-        const positions = []
+  const handler = (pointList) => {
+    if (pointList != null) {
+      const positions = []
+      pointList.map((response) => {
         const point = {
-          x: response.getX(),
-          y: response.getY(),
-          z: response.getZ(),
+          x: response.x,
+          y: response.y,
+          z: response.z,
         }
         positions.push(point.x, point.y, point.z)
+      })
 
-        const geometry = new THREE.BufferGeometry()
-        geometry.setAttribute(
-          'position',
-          new THREE.Float32BufferAttribute(positions, 3)
-        )
-        geometry.computeBoundingSphere()
-
-        const material = new THREE.PointsMaterial({
-          size: 3,
-          vertexColors: 0x00ff00,
-        })
-        const points = new THREE.Points(geometry, material)
-        state.scene.add(points)
-        state.renderer.render(state.scene, state.camera)
-      }
-    })
-
-    stream.on('error', (err) => {
-      console.log(
-        `Unexpected stream error: code = ${err.code}, message = "${err.message}"`
+      const geometry = new THREE.BufferGeometry()
+      geometry.setAttribute(
+        'position',
+        new THREE.Float32BufferAttribute(positions, 3)
       )
-    })
+      geometry.computeBoundingSphere()
+
+      const material = new THREE.PointsMaterial({
+        size: 3,
+        vertexColors: 0x00ff00,
+      })
+      const points = new THREE.Points(geometry, material)
+      state.scene.add(points)
+      state.renderer.render(state.scene, state.camera)
+    }
+  }
+
+  const sendUnary = async () => {
+    clearScene()
+    const request = new PointCloudRequest()
+    request.setFilename('wolf.pcd')
+    const stream = new GrpcStream('http://10.10.98.56:5000')
+    stream.getStreamPointCloud(request, handler)
   }
 
   return (
-    <div className="app-wrap" ref={viewNode}>
-      <input
-        type="file"
-        id="pcd-upload"
-        accept=".pcd"
-        onClick={startServerStream}
-      />
-      <button id="clear-scene" onClick={clearScene}>
-        清除场景
-      </button>
-      <button id="getPoints-scene" onClick={sendUnary}>
-        获取实时点云
-      </button>
-    </div>
+    <React.Fragment>
+      <div className="app-wrap">
+        <input
+          type="file"
+          id="pcd-upload"
+          accept=".pcd"
+          onChange={startServerStream}
+        />
+        <Button id="clear-scene" onClick={clearScene}>
+          清除场景
+        </Button>
+        <Button id="getPoints-scene" onClick={sendUnary}>
+          获取实时点云
+        </Button>
+      </div>
+      <div ref={viewNode}></div>
+    </React.Fragment>
   )
 }
 

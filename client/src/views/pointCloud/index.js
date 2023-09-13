@@ -1,3 +1,8 @@
+/*
+ * @Description:
+ * @Author: Devin
+ * @Date: 2023-09-14 03:17:53
+ */
 import React, { useState, useEffect } from 'react'
 import { PointCloudRequest } from '@/grpc-api/point_cloud_pb.js'
 import { grpc } from 'grpc-web'
@@ -15,7 +20,7 @@ const PointCloud = (props) => {
   const onLoadPointCloud = () => {
     const request = new PointCloudRequest()
     request.setFilename('wolf.pcd')
-    const stream = new GrpcStream('http://localhost:5000')
+    const stream = new GrpcStream('http://10.10.98.56:5000')
     stream.getStreamPointCloud(request, handler)
   }
   return (
