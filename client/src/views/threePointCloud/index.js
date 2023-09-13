@@ -6,6 +6,7 @@ import { PointCloudStreamServiceClient } from '@/grpc-api/point_cloud_grpc_web_p
 import { PointCloudRequest } from '@/grpc-api/point_cloud_pb.js'
 import GrpcStream from '@/utils/GrpcStream'
 import { Button, Input, Typography } from 'antd'
+import { PCDLoader } from 'three/examples/jsm/loaders/PCDLoader.js'
 
 const ThreePointCloud = () => {
   const viewNode = useRef(null)
@@ -95,8 +96,8 @@ const ThreePointCloud = () => {
     const file = event.target.files[0]
     if (file) {
       const reader = new FileReader()
+      const pcdLoader = new PCDLoader()
       reader.onload = (e) => {
-        console.log(e.target.result, 'e.target.result')
         const points = pcdLoader.parse(e.target.result)
         points.material = state.pointCloudMaterial
         state.scene.add(points)
