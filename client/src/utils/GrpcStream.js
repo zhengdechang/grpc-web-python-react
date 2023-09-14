@@ -20,7 +20,7 @@ class GrpcStream {
       this.buffer.push(point)
 
       // 如果缓冲区达到一定数量，更新状态并清空缓冲区
-      if (this.buffer.length >= 100) {
+      if (this.buffer.length >= 500) {
         // 你可以根据实际情况调整这个值
         handler(this.buffer)
         this.buffer = []

@@ -72,7 +72,7 @@ const ThreePointCloud = () => {
     state.pointCloudMaterial = new THREE.PointsMaterial({
       size: 0.05,
       color: 0xffffff,
-      opacity: 1,
+      opacity: 0.7,
       transparent: true,
     })
   }
@@ -108,6 +108,7 @@ const ThreePointCloud = () => {
   }
 
   const handler = (pointList) => {
+    console.log(pointList, 'pointList')
     if (pointList != null) {
       const positions = []
       pointList.map((response) => {
@@ -139,7 +140,7 @@ const ThreePointCloud = () => {
   const sendUnary = async () => {
     clearScene()
     const request = new PointCloudRequest()
-    request.setFilename('wolf.pcd')
+    request.setFilename('Zaghetto.pcd')
     const stream = new GrpcStream('http://10.10.98.56:5000')
     stream.getStreamPointCloud(request, handler)
   }
