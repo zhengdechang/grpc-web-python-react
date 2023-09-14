@@ -8,7 +8,7 @@ import GrpcStream from '@/utils/GrpcStream'
 import { Button, Input, Typography } from 'antd'
 import { PCDLoader } from 'three/examples/jsm/loaders/PCDLoader.js'
 import { GUI } from 'three/examples/jsm/libs/lil-gui.module.min.js'
-import saverPcd from '../../utils/saver'
+import Stats from 'three/examples/jsm/libs/stats.module.js'
 
 const ThreePointCloud = () => {
   const viewNode = useRef(null)
@@ -22,6 +22,7 @@ const ThreePointCloud = () => {
     points: null,
     positions: [],
     geometry: null,
+    stats: null,
   })
 
   useEffect(() => {
@@ -41,8 +42,13 @@ const ThreePointCloud = () => {
     state.renderer.setPixelRatio(window.devicePixelRatio)
     state.renderer.setSize(window.innerWidth, window.innerHeight)
     viewNode.current.appendChild(state.renderer.domElement)
+    state.stats = new Stats()
+    state.stats.dom.style.position = 'absolute' // 设置元素的位置
+    viewNode.current.appendChild(state.stats.dom)
 
     state.scene = new THREE.Scene()
+    state.scene.background = new THREE.Color(0x050505)
+    state.scene.fog = new THREE.Fog(0x050505, 2000, 3500)
 
     state.camera = new THREE.PerspectiveCamera(
       30,
@@ -61,6 +67,7 @@ const ThreePointCloud = () => {
 
   const animation = () => {
     state.animationId = requestAnimationFrame(animation)
+    state.stats.update()
     // Update your scene here
     render()
   }
@@ -126,6 +133,10 @@ const ThreePointCloud = () => {
         gui.addColor(state.material, 'color').onChange(() => render())
         gui.add(state.material, 'opacity').onChange(() => render())
         gui.add(state.material, 'transparent').onChange(() => render())
+        gui.add(state.material, 'sizeAttenuation').onChange(() => render())
+        gui.add(state.material, 'depthTest').onChange(() => render())
+        gui.add(state.material, 'depthWrite').onChange(() => render())
+        gui.add(state.material, 'vertexColors').onChange(() => render())
 
         gui.open()
       }
@@ -176,7 +187,9 @@ const ThreePointCloud = () => {
           获取实时点云
         </Button>
       </div>
-      <div ref={viewNode}></div>
+      <div style={{ position: 'relative' }}>
+        <div ref={viewNode}></div>
+      </div>
     </React.Fragment>
   )
 }
