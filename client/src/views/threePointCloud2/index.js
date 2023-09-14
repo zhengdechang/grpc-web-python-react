@@ -137,7 +137,7 @@ const ThreePointCloud = () => {
         gui.add(state.material, 'depthTest').onChange(() => render())
         gui.add(state.material, 'depthWrite').onChange(() => render())
         gui.add(state.material, 'vertexColors').onChange(() => render())
-
+        gui.add(state.material, 'count').onChange(() => render())
         gui.open()
       }
 
