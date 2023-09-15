@@ -9,6 +9,7 @@ import { grpc } from 'grpc-web'
 import GrpcStream from '@/utils/GrpcStream'
 import { Button, Input, Typography } from 'antd'
 import StreamingViewer from './streamingViewer'
+import getGrpcUrl from '@/utils/get-grpc-url.js'
 
 const PointCloud = (props) => {
   const [points, setPoints] = useState([])
@@ -20,7 +21,7 @@ const PointCloud = (props) => {
   const onLoadPointCloud = () => {
     const request = new PointCloudRequest()
     request.setFilename('wolf.pcd')
-    const stream = new GrpcStream('http://10.10.98.56:5000')
+    const stream = new GrpcStream(getGrpcUrl())
     stream.getStreamPointCloud(request, handler)
   }
   return (

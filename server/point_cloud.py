@@ -8,7 +8,7 @@ import os
 def generate_point_cloud(pcd_file):
     try:
         cloud = PyntCloud.from_file(pcd_file)
-        points = cloud.points.values.tolist()
+        points = cloud.xyz
 
         print(len(points),'points')
         for point in points:
@@ -16,7 +16,6 @@ def generate_point_cloud(pcd_file):
             yield point_cloud_pb2.Point(x=x, y=y, z=z)
     except Exception as e:
         print(f'e:{e}')
-
 
 
 class PointCloudStreamService(point_cloud_pb2_grpc.PointCloudStreamServiceServicer):

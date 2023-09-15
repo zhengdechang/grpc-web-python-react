@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 CURR_PWD=$(pwd)
 
 source venv/bin/activate
