@@ -7,6 +7,7 @@ import { PointCloudRequest } from '@/grpc-api/point_cloud_pb.js'
 import GrpcStream from '@/utils/GrpcStream'
 import { Button, Input, Typography } from 'antd'
 import { PCDLoader } from 'three/examples/jsm/loaders/PCDLoader.js'
+import getGrpcUrl from '@/utils/get-grpc-url.js'
 
 const ThreePointCloud = () => {
   const viewNode = useRef(null)
@@ -141,7 +142,7 @@ const ThreePointCloud = () => {
     clearScene()
     const request = new PointCloudRequest()
     request.setFilename('Zaghetto.pcd')
-    const stream = new GrpcStream('http://10.10.98.56:5000')
+    const stream = new GrpcStream(getGrpcUrl())
     stream.getStreamPointCloud(request, handler)
   }
 

@@ -9,6 +9,7 @@ import { Button, Input, Typography } from 'antd'
 import { PCDLoader } from 'three/examples/jsm/loaders/PCDLoader.js'
 import { GUI } from 'three/examples/jsm/libs/lil-gui.module.min.js'
 import Stats from 'three/examples/jsm/libs/stats.module.js'
+import getGrpcUrl from '@/utils/get-grpc-url.js'
 
 const ThreePointCloud = () => {
   const viewNode = useRef(null)
@@ -82,6 +83,7 @@ const ThreePointCloud = () => {
   }
 
   const startServerStream = (event) => {
+    console.log('event: ', event.target);
     clearScene()
     const file = event.target.files[0]
     if (file) {
@@ -167,24 +169,25 @@ const ThreePointCloud = () => {
     clearScene()
     const request = new PointCloudRequest()
     request.setFilename('Zaghetto1.pcd')
-    const stream = new GrpcStream('http://10.10.98.56:5000')
+    const stream = new GrpcStream(getGrpcUrl())
     stream.getStreamPointCloud(request, handler)
   }
 
   return (
     <React.Fragment>
       <div className="app-wrap">
-        <input
+        <Input
           type="file"
           id="pcd-upload"
           accept=".pcd"
           onChange={startServerStream}
+          style={{ width: '200px', marginRight: '60px' }}
         />
         <Button id="clear-scene" onClick={clearScene}>
           清除场景
         </Button>
         <Button id="getPoints-scene" onClick={sendUnary}>
-          获取实时点云
+          获取grpc点云
         </Button>
       </div>
       <div style={{ position: 'relative' }}>

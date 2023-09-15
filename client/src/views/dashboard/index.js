@@ -2,14 +2,14 @@ import React, { useState } from 'react'
 import { Button, Input, Typography } from 'antd'
 import { HelloReq } from '@/grpc-api/simple_grpc_pb.js'
 import { SimpleGrpcClient } from '@/grpc-api/simple_grpc_grpc_web_pb.js'
-
+import getGrpcUrl from '@/utils/get-grpc-url.js'
 const { Text } = Typography
 
 const IndexPage = () => {
   const [username, setUsername] = useState('')
   const [grpcResponse, setGrpcResponse] = useState('')
 
-  const client = new SimpleGrpcClient('http://localhost:5000', null, null)
+  const client = new SimpleGrpcClient(getGrpcUrl(), null, null)
 
   const onSubmit = () => {
     let req = new HelloReq()

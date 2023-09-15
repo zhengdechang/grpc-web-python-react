@@ -13,7 +13,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x11point_cloud.proto\x12\npointcloud\"(\n\x05Point\x12\t\n\x01x\x18\x01 \x01(\x01\x12\t\n\x01y\x18\x02 \x01(\x01\x12\t\n\x01z\x18\x03 \x01(\x01\"7\n\x12PointCloudResponse\x12!\n\x06points\x18\x01 \x01(\x0b\x32\x11.pointcloud.Point\"%\n\x11PointCloudRequest\x12\x10\n\x08\x66ilename\x18\x01 \x01(\t2q\n\x17PointCloudStreamService\x12V\n\x13GetStreamPointCloud\x12\x1d.pointcloud.PointCloudRequest\x1a\x1e.pointcloud.PointCloudResponse0\x01\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x11point_cloud.proto\x12\npointcloud.png\"(\n\x05Point\x12\t\n\x01x\x18\x01 \x01(\x01\x12\t\n\x01y\x18\x02 \x01(\x01\x12\t\n\x01z\x18\x03 \x01(\x01\"7\n\x12PointCloudResponse\x12!\n\x06points\x18\x01 \x01(\x0b\x32\x11.pointcloud.png.Point\"%\n\x11PointCloudRequest\x12\x10\n\x08\x66ilename\x18\x01 \x01(\t2q\n\x17PointCloudStreamService\x12V\n\x13GetStreamPointCloud\x12\x1d.pointcloud.png.PointCloudRequest\x1a\x1e.pointcloud.png.PointCloudResponse0\x01\x62\x06proto3')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'point_cloud_pb2', globals())
