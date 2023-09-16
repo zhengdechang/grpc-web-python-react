@@ -17,7 +17,7 @@ const HappyPack = require('happypack') // 多线程打包工具
 const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length })
 const Dotenv = require('dotenv-webpack')
 const definePlugin = new webpack.DefinePlugin({
-'process.env.POSTGRESQL_USER': JSON.stringify(process.env.POSTGRESQL_USER)
+'process.env.REACT_APP_GRPC_URL': JSON.stringify(process.env.REACT_APP_GRPC_URL)
 });
 const name = defaultSettings.title || 'React' // page title
 module.exports = {
