@@ -16,7 +16,9 @@ const HardSourceWebpackPlugin = require('hard-source-webpack-plugin')
 const HappyPack = require('happypack') // 多线程打包工具
 const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length })
 const Dotenv = require('dotenv-webpack')
-
+const definePlugin = new webpack.DefinePlugin({
+'process.env.POSTGRESQL_USER': JSON.stringify(process.env.POSTGRESQL_USER)
+});
 const name = defaultSettings.title || 'React' // page title
 module.exports = {
   entry: {
@@ -69,6 +71,7 @@ module.exports = {
   },
   plugins: [
   new Dotenv(),
+    definePlugin,
     new TimeFixPlugin(),
     new WebpackBar({
       name: 'Build',
