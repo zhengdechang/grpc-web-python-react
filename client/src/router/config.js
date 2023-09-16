@@ -26,7 +26,7 @@ const routerConfig = [
     component: 'exception/500',
     exact: true,
   },
-  { path: '/', redirect: '/dashboard', exact: true },
+  { path: '/', redirect: '/threepointcloud2', exact: true },
   { path: '*', redirect: '/exception/404', exact: true },
 ]
 

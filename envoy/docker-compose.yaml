@@ -5,3 +5,8 @@ services:
     image: envoy-proxy:v1.0
     restart: always
     network_mode: "host"
+#  server:
+#    container_name: server
+#    image: server:v1.0
+#    restart: always
+#    network_mode: "host"

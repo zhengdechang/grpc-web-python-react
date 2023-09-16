@@ -139,7 +139,6 @@ const ThreePointCloud = () => {
         gui.add(state.material, 'depthTest').onChange(() => render())
         gui.add(state.material, 'depthWrite').onChange(() => render())
         gui.add(state.material, 'vertexColors').onChange(() => render())
-        gui.add(state.material, 'count').onChange(() => render())
         gui.open()
       }
 
@@ -168,7 +167,7 @@ const ThreePointCloud = () => {
   const sendUnary = async () => {
     clearScene()
     const request = new PointCloudRequest()
-    request.setFilename('Zaghetto1.pcd')
+    request.setFilename('Zaghetto.pcd')
     const stream = new GrpcStream(getGrpcUrl())
     stream.getStreamPointCloud(request, handler)
   }
