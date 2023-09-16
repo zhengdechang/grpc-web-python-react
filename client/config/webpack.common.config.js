@@ -15,6 +15,7 @@ const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin')
 const HardSourceWebpackPlugin = require('hard-source-webpack-plugin')
 const HappyPack = require('happypack') // 多线程打包工具
 const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length })
+const Dotenv = require('dotenv-webpack')
 
 const name = defaultSettings.title || 'React' // page title
 module.exports = {
@@ -67,6 +68,7 @@ module.exports = {
     ],
   },
   plugins: [
+  new Dotenv(),
     new TimeFixPlugin(),
     new WebpackBar({
       name: 'Build',
