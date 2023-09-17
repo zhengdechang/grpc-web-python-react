@@ -8,6 +8,7 @@ This project implements Python communication with React using gRPC, and utilizes
 git clone https://github.com/zhengdechang/grpc-web-python-react.git
 ```
 
+🇬🇧 English | [简体中文](./README-EN.md) 
 
 ## Server
 
@@ -71,11 +72,11 @@ With the server, client, and Envoy set up and running, you should have a functio
 
 This project implements Python communication with React using gRPC and utilizes gRPC-Web for streaming point cloud rendering. Here are some screenshots showcasing the functionality and interface of the project:
 
-http://localhost:3000/#/threepointcloud2
+https://grpc-web-python-react.vercel.app/#/threepointcloud2
 ![Demo 1](client/src/assets/images/threepointcloud2.png)
 Example of stream point cloud rendering interface
 
-http://localhost:3000/#/pointcloud
+https://grpc-web-python-react.vercel.app/#/pointcloud
 ![Demo 2](client/src/assets/images/pointcloud.png)
 Example of point cloud data transmission
 
