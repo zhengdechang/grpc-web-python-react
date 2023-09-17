@@ -48,7 +48,9 @@ const ThreePointCloud = () => {
 
   const initThreeScene = () => {
     // Create a scene
-    state.renderer = new THREE.WebGLRenderer({ antialias: true })
+    state.renderer = new THREE.WebGLRenderer({
+      antialias: true
+    })
     state.renderer.setPixelRatio(window.devicePixelRatio)
     state.renderer.setSize(window.innerWidth, window.innerHeight)
     viewNode.current.appendChild(state.renderer.domElement)
@@ -74,44 +76,57 @@ const ThreePointCloud = () => {
     state.controls.minDistance = 0.5
     state.controls.maxDistance = 10
 
+
+    setupLights();
+    addControls()
+  }
+
+  const animation = () => {
+    state.animationId = requestAnimationFrame(animation)
+    state.stats.update()
+    // Update your scene here
+    render()
+  }
+
+  const addControls = () => {
     state.geometry = new THREE.BufferGeometry()
 
-    state.material = new THREE.PointsMaterial({
-      size: 0.005,
-      color: 0xffffff,
-      opacity: 0.7,
-      transparent: true,
-    })
+    state.material = new THREE.PointsMaterial(state.guiControls)
     const gui = new GUI()
 
-
-    gui.add(state.guiControls, "showPointCloud")
+    const box = gui.addFolder('Points');
+    // box.add(state.points.material, 'x', 0, 3).name('Width').listen();
+    // box.add(state.points.material, 'y', 0, 3).name('Height').listen();
+    // box.add(state.points.material, 'z', 0, 3).name('Length').listen();
+    // box.add(state.points.material, 'wireframe').listen();
+    box.add(state.guiControls, "showPointCloud")
       .name("显示点云")
       .onChange((value) => {
         if (state.points) state.points.visible = value;
       });
-    gui.add(state.guiControls, "size", 0.001, 0.01)
+    const other = gui.addFolder('Other');
+    other.add(state.guiControls, "size", 0.001, 0.01)
       .name("颗粒度")
       .onChange((value) => {
         if (state.points) {
           state.points.material.size = value
         };
       });
-    gui.add(state.guiControls, "opacity", 0, 1)
+    other.add(state.guiControls, "opacity", 0, 1)
       .name("透明度")
       .onChange((value) => {
         if (state.points) {
           state.points.material.opacity = value
         };
       });
-    gui.addColor(state.guiControls, "color")
+    other.addColor(state.guiControls, "color")
       .name("颜色")
       .onChange((value) => {
         if (state.points) {
           state.points.material.color.set(value);
         }
       });
-    gui
+    other
       .add(state.guiControls, "autoRotate")
       .name("自动旋转")
       .onChange((value) => {
@@ -131,14 +146,15 @@ const ThreePointCloud = () => {
     // gui.add(state.material, 'depthTest').onChange(() => render())
     // gui.add(state.material, 'depthWrite').onChange(() => render())
     // gui.add(state.material, 'vertexColors').onChange(() => render())
-    gui.open()
+    box.open();
+    other.open()
   }
 
-  const animation = () => {
-    state.animationId = requestAnimationFrame(animation)
-    state.stats.update()
-    // Update your scene here
-    render()
+  const setupLights = () => {
+    state.scene.add(new THREE.AmbientLight(0xffffff, 0.5));
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+    directionalLight.position.set(1, 5, 1);
+    state.scene.add(directionalLight);
   }
 
   const clearScene = () => {
