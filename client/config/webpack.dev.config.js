@@ -63,7 +63,7 @@ module.exports = merge(common, {
       template: 'public/index.html',
       inject: 'body',
       hash: false,
-      favicon: path.resolve('public/favicon.ico'),
+      // favicon: path.resolve('public/favicon.ico'),
     }),
     new FriendlyErrorsWebpackPlugin({
       compilationSuccessInfo: {
