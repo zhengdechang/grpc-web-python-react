@@ -8,7 +8,7 @@ import { PointCloudRequest } from '@/grpc-api/point_cloud_pb.js'
 import GrpcStream from '@/utils/GrpcStream'
 import { Button, Input, Typography } from 'antd'
 import { PCDLoader } from 'three/examples/jsm/loaders/PCDLoader.js'
-import { GUI } from "dat.gui";
+import { GUI } from 'dat.gui'
 import Stats from 'three/examples/jsm/libs/stats.module.js'
 import getGrpcUrl from '@/utils/get-grpc-url.js'
 
@@ -32,7 +32,7 @@ const ThreePointCloud = () => {
       opacity: 0.7,
       transparent: true,
       autoRotate: false,
-    }
+    },
   })
 
   useEffect(() => {
@@ -49,7 +49,7 @@ const ThreePointCloud = () => {
   const initThreeScene = () => {
     // Create a scene
     state.renderer = new THREE.WebGLRenderer({
-      antialias: true
+      antialias: true,
     })
     state.renderer.setPixelRatio(window.devicePixelRatio)
     state.renderer.setSize(window.innerWidth, window.innerHeight)
@@ -76,8 +76,7 @@ const ThreePointCloud = () => {
     state.controls.minDistance = 0.5
     state.controls.maxDistance = 10
 
-
-    setupLights();
+    setupLights()
     addControls()
   }
 
@@ -94,67 +93,71 @@ const ThreePointCloud = () => {
     state.material = new THREE.PointsMaterial(state.guiControls)
     const gui = new GUI()
 
-    const box = gui.addFolder('Points');
+    const box = gui.addFolder('Points')
     // box.add(state.points.material, 'x', 0, 3).name('Width').listen();
     // box.add(state.points.material, 'y', 0, 3).name('Height').listen();
     // box.add(state.points.material, 'z', 0, 3).name('Length').listen();
     // box.add(state.points.material, 'wireframe').listen();
-    box.add(state.guiControls, "showPointCloud")
-      .name("显示点云")
+    box
+      .add(state.guiControls, 'showPointCloud')
+      .name('显示点云')
       .onChange((value) => {
-        if (state.points) state.points.visible = value;
-      });
-    const other = gui.addFolder('Other');
-    other.add(state.guiControls, "size", 0.001, 0.01)
-      .name("颗粒度")
+        if (state.points) state.points.visible = value
+      })
+    const other = gui.addFolder('Other')
+    other
+      .add(state.guiControls, 'size', 0.001, 0.01)
+      .name('颗粒度')
       .onChange((value) => {
         if (state.points) {
           state.points.material.size = value
-        };
-      });
-    other.add(state.guiControls, "opacity", 0, 1)
-      .name("透明度")
+        }
+      })
+    other
+      .add(state.guiControls, 'opacity', 0, 1)
+      .name('透明度')
       .onChange((value) => {
         if (state.points) {
           state.points.material.opacity = value
-        };
-      });
-    other.addColor(state.guiControls, "color")
-      .name("颜色")
+        }
+      })
+    other
+      .addColor(state.guiControls, 'color')
+      .name('颜色')
       .onChange((value) => {
         if (state.points) {
-          state.points.material.color.set(value);
+          state.points.material.color.set(value)
         }
-      });
+      })
     other
-      .add(state.guiControls, "autoRotate")
-      .name("自动旋转")
+      .add(state.guiControls, 'autoRotate')
+      .name('自动旋转')
       .onChange((value) => {
-        state.points.autoRotate = value;
+        state.points.autoRotate = value
         render()
-      });
+      })
 
-    const guiDomElement = gui.domElement;
+    const guiDomElement = gui.domElement
     console.log(guiDomElement, 'guiDomElement')
     viewNode.current.appendChild(guiDomElement)
     // 设置gui的位置
-    guiDomElement.style.position = "absolute";
-    guiDomElement.style.top = "10px";
-    guiDomElement.style.right = "10px";
+    guiDomElement.style.position = 'absolute'
+    guiDomElement.style.top = '10px'
+    guiDomElement.style.right = '10px'
     // gui.add(state.material, 'size', 0.001, 0.01).onChange(() => render())
     // gui.add(state.material, 'sizeAttenuation').onChange(() => render())
     // gui.add(state.material, 'depthTest').onChange(() => render())
     // gui.add(state.material, 'depthWrite').onChange(() => render())
     // gui.add(state.material, 'vertexColors').onChange(() => render())
-    box.open();
+    box.open()
     other.open()
   }
 
   const setupLights = () => {
-    state.scene.add(new THREE.AmbientLight(0xffffff, 0.5));
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-    directionalLight.position.set(1, 5, 1);
-    state.scene.add(directionalLight);
+    state.scene.add(new THREE.AmbientLight(0xffffff, 0.5))
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 1)
+    directionalLight.position.set(1, 5, 1)
+    state.scene.add(directionalLight)
   }
 
   const clearScene = () => {
@@ -163,11 +166,13 @@ const ThreePointCloud = () => {
         state.scene.remove(object)
       }
     }
-    state.renderer.render(state.scene, state.camera)
+    state.positions = []
+    state.points = null
+    render()
   }
 
   const startServerStream = (event) => {
-    console.log('event: ', event.target);
+    console.log('event: ', event.target)
     clearScene()
     const file = event.target.files[0]
     if (file) {
@@ -185,8 +190,8 @@ const ThreePointCloud = () => {
   }
   const render = () => {
     if (state.points && state.points.autoRotate) {
-      state.points.rotation.x += 0.01;
-      state.points.rotation.y += 0.01;
+      state.points.rotation.x += 0.01
+      state.points.rotation.y += 0.01
     }
     state.renderer.render(state.scene, state.camera)
   }
@@ -222,7 +227,7 @@ const ThreePointCloud = () => {
 
     state.renderer.setSize(window.innerWidth, window.innerHeight)
 
-    state.renderer.render(state.scene, state.camera)
+    render()
   }
 
   const sendUnary = async () => {
@@ -250,7 +255,7 @@ const ThreePointCloud = () => {
           获取grpc点云
         </Button>
       </div>
-      <div className='canvas'>
+      <div className="canvas">
         <div ref={viewNode}></div>
       </div>
     </React.Fragment>
