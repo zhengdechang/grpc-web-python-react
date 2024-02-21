@@ -15,9 +15,9 @@ class PointCloudStreamServiceStub(object):
             channel: A grpc.Channel.
         """
         self.GetStreamPointCloud = channel.unary_stream(
-                '/pointcloud.png.PointCloudStreamService/GetStreamPointCloud',
+                '/pointcloud.PointCloudStreamService/GetStreamPointCloud',
                 request_serializer=point__cloud__pb2.PointCloudRequest.SerializeToString,
-                response_deserializer=point__cloud__pb2.PointCloudResponse.FromString,
+                response_deserializer=point__cloud__pb2.Point.FromString,
                 )
 
 
@@ -36,11 +36,11 @@ def add_PointCloudStreamServiceServicer_to_server(servicer, server):
             'GetStreamPointCloud': grpc.unary_stream_rpc_method_handler(
                     servicer.GetStreamPointCloud,
                     request_deserializer=point__cloud__pb2.PointCloudRequest.FromString,
-                    response_serializer=point__cloud__pb2.PointCloudResponse.SerializeToString,
+                    response_serializer=point__cloud__pb2.Point.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'pointcloud.png.PointCloudStreamService', rpc_method_handlers)
+            'pointcloud.PointCloudStreamService', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
 
 
@@ -59,8 +59,8 @@ class PointCloudStreamService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_stream(request, target, '/pointcloud.png.PointCloudStreamService/GetStreamPointCloud',
+        return grpc.experimental.unary_stream(request, target, '/pointcloud.PointCloudStreamService/GetStreamPointCloud',
             point__cloud__pb2.PointCloudRequest.SerializeToString,
-            point__cloud__pb2.PointCloudResponse.FromString,
+            point__cloud__pb2.Point.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

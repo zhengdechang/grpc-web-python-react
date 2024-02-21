@@ -1,0 +1,17 @@
+version: '3.9'
+services:
+  grpc-proxy:
+    container_name: grpc-proxy
+    image: codedevin/grpc-proxy:v1.0
+    restart: always
+    network_mode: "host"
+  grpc-server:
+    container_name: grpc-server
+    image: codedevin/grpc-server:v1.0
+    restart: always
+    network_mode: "host"
+  grpc-client:
+    container_name: grpc-client
+    image: codedevin/grpc-client:v1.0
+    restart: always
+    network_mode: "host"
